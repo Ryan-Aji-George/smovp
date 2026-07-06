@@ -1118,6 +1118,33 @@ footer{
   .legacy-stats{ gap:1.4rem; }
   .vrow{ grid-template-columns:88px 1fr; gap:.9rem; }
   .foot-mega h2{ font-size:clamp(1.9rem,9vw,3.4rem); }
+
+  /* hero CTAs: full-width, thumb-sized, centered */
+  .hero-foot{ gap:1.3rem; }
+  .hero-cta{ width:100%; }
+  .hero-cta .pill{
+    flex:1 1 auto; justify-content:center;
+    padding:1.1rem 1.2rem; font-size:.78rem; min-height:52px;
+  }
+  .nav-pill{ min-height:44px; }
+
+  /* text over imagery: shadow reinforcement on top of gradients */
+  .scene h2, .scene p, .scene-num{ text-shadow:0 1px 16px rgba(20,12,3,.6); }
+  .scene.typo h2, .scene.typo p, .scene.typo .scene-num{ text-shadow:none; }
+  .cinema-head h2, .cinema-head .act{ text-shadow:0 2px 16px rgba(0,0,0,.65); }
+  .call-in h2, .call-in p{ text-shadow:0 1px 14px rgba(20,12,3,.5); }
+
+  /* chapter dots sit in a glass chip so they read on any frame */
+  .story-rail{
+    background:rgba(20,13,4,.38);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    padding:.6rem .95rem; border-radius:100px;
+  }
+  .story[data-scene="1"] .story-rail{ background:rgba(43,32,19,.12); }
+
+  /* comfortable tabs & labels */
+  .act{ font-size:.66rem; }
+  .wtab{ padding:1.15rem .9rem; min-width:96px; }
 }
 
 /* ================================================================
@@ -1931,33 +1958,80 @@ footer{
     });
   });
 
-  /* ---------- TOUCH: one swipe = one chapter ----------
-     Inside the pinned story, a swipe snaps cleanly to the
-     next / previous scene instead of free-scrolling. */
+  /* ---------- TOUCH: one swipe = exactly one step ----------
+     Inside the pinned story and gallery, native scrolling is
+     intercepted; any committed swipe advances exactly one
+     chapter / one frame regardless of swipe force. Edge swipes
+     hand control back to native scroll so nothing feels trapped. */
   if (coarse && !reduced){
-    var tY = 0, tT = 0, snapping = false;
+    var tY = 0, zone = null, blocked = false, snapPts = null;
+
     function chapterY(i){ return G.storyTop + (G.storyLen * (i + .5)) / N; }
+    function storyIdx(y){
+      return clamp(Math.round(((y - G.storyTop) / G.storyLen) * N - .5), 0, N - 1);
+    }
+    function buildCinemaSnaps(){
+      var kids = [].slice.call(cinemaTrack.children);
+      var base = kids.length ? kids[0].offsetLeft : 0;
+      var pts = kids.map(function(k){
+        var px = clamp(k.offsetLeft - base, 0, G.trackMax);
+        return G.cinemaTop + (G.trackMax ? px / G.trackMax : 0) * G.cinemaLen;
+      });
+      pts.push(G.cinemaTop + G.cinemaLen);
+      return pts;
+    }
+    function nearestIdx(pts, y){
+      var best = 0, d = Infinity;
+      for (var i = 0; i < pts.length; i++){
+        var dd = Math.abs(pts[i] - y);
+        if (dd < d){ d = dd; best = i; }
+      }
+      return best;
+    }
+    function zoneAt(y){
+      if (y > G.storyTop - vh * .3 && y < G.storyTop + story.offsetHeight - vh * 1.05) return "story";
+      if (y > G.cinemaTop - vh * .3 && y < G.cinemaTop + cinema.offsetHeight - vh * 1.05) return "cinema";
+      return null;
+    }
+
     window.addEventListener("touchstart", function(e){
       if (animId){ cancelAnimationFrame(animId); animId = null; }
-      snapping = false;
-      tY = e.touches[0].clientY; tT = Date.now();
+      tY = e.touches[0].clientY;
+      blocked = false;
+      zone = zoneAt(window.scrollY);
+      snapPts = zone === "cinema" ? buildCinemaSnaps() : null;
     }, { passive:true });
-    window.addEventListener("touchend", function(e){
-      if (snapping) return;
+
+    window.addEventListener("touchmove", function(e){
+      if (!zone) return;
+      var dy = tY - e.touches[0].clientY;          /* >0 = swipe up / forward */
       var y = window.scrollY;
-      var inStory = y > G.storyTop - vh * .4 &&
-                    y < G.storyTop + story.offsetHeight - vh * 1.2;
-      if (!inStory) return;
-      var dy = tY - e.changedTouches[0].clientY;       /* >0 = swipe up */
-      var fast = Date.now() - tT < 320 && Math.abs(dy) > 24;
-      if (Math.abs(dy) < 40 && !fast) return;
-      var f = clamp((y - G.storyTop) / G.storyLen, 0, 1) * N;
-      var idx = clamp(Math.round(f - .5), 0, N - 1);
-      var next = clamp(dy > 0 ? idx + 1 : idx - 1, 0, N - 1);
-      /* leaving the story past its edges: let native scroll continue */
-      if ((idx === N - 1 && dy > 0) || (idx === 0 && dy < 0)) return;
-      snapping = true;
-      animateTo(chapterY(next), 650);
+      /* release to native scroll at the edges */
+      if (zone === "story"){
+        var i = storyIdx(y);
+        if ((i === N - 1 && dy > 0) || (i === 0 && dy < 0)){ zone = null; return; }
+      } else {
+        var c = nearestIdx(snapPts, y);
+        if ((c === snapPts.length - 1 && dy > 0) || (c === 0 && dy < 0)){ zone = null; return; }
+      }
+      e.preventDefault();                           /* freeze the page under the finger */
+      blocked = true;
+    }, { passive:false });
+
+    window.addEventListener("touchend", function(e){
+      if (!zone || !blocked){ zone = null; return; }
+      var dy = tY - e.changedTouches[0].clientY;
+      var dir = dy > 0 ? 1 : -1;
+      if (Math.abs(dy) >= 24){                      /* any committed swipe = one step */
+        var y = window.scrollY;
+        if (zone === "story"){
+          animateTo(chapterY(clamp(storyIdx(y) + dir, 0, N - 1)), 620);
+        } else {
+          var c = nearestIdx(snapPts, y);
+          animateTo(snapPts[clamp(c + dir, 0, snapPts.length - 1)], 650);
+        }
+      }
+      zone = null;
     }, { passive:true });
   }
 
