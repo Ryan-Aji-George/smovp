@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="St. Mary's Orthodox Valliapally, Jalahalli, Bangalore — a parish of the Malankara Orthodox Syrian Church. A story of grace in four chapters."> 
+<meta name="description" content="St. Mary's Orthodox Valliapally, Jalahalli, Bangalore — a parish of the Malankara Orthodox Syrian Church. A story of grace in four chapters.">
 <meta name="theme-color" content="#faf3e3">
 <meta property="og:title" content="St. Mary's Orthodox Valliapally — Jalahalli, Bangalore">
 <meta property="og:description" content="All generations shall call me blessed. Worship with us in Jalahalli.">
@@ -365,7 +365,7 @@ body.menu-open .menu-close{ opacity:1; transform:rotate(0deg); }
    HERO
    ================================================================ */
 .hero{
-  position:relative; height:100svh; min-height:560px; overflow:clip;
+  position:relative; height:100svh; height:100dvh; min-height:560px; overflow:clip;
   background:var(--dark);
 }
 .hero-media{ position:absolute; inset:0; will-change:transform; }
@@ -517,7 +517,7 @@ body.loaded .hero-scrollcue{ opacity:1; }
    STORY — continuous crossfade scrollytelling
    ================================================================ */
 .story{ position:relative; height:400vh; background:var(--dark); }
-.story-stage{ position:sticky; top:0; height:100svh; overflow:clip; }
+.story-stage{ position:sticky; top:0; height:100svh; height:100dvh; overflow:clip; }
 .scene{ position:absolute; inset:0; opacity:0; pointer-events:none; will-change:opacity; }
 .scene-media{ position:absolute; inset:0; overflow:clip; }
 .scene-media img{
@@ -613,7 +613,7 @@ body.loaded .hero-scrollcue{ opacity:1; }
    ================================================================ */
 .verse{ position:relative; height:180vh; background:var(--bg); }
 .verse-stage{
-  position:sticky; top:0; height:100svh;
+  position:sticky; top:0; height:100svh; height:100dvh;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:0 var(--pad);
   background:radial-gradient(70% 55% at 50% 42%, #fff7e2, transparent 75%);
@@ -787,7 +787,7 @@ body.loaded .hero-scrollcue{ opacity:1; }
    CINEMA — horizontal gallery
    ================================================================ */
 .cinema{ position:relative; height:260vh; background:var(--dark); }
-.cinema-stage{ position:sticky; top:0; height:100svh; overflow:clip; display:flex; align-items:center; }
+.cinema-stage{ position:sticky; top:0; height:100svh; height:100dvh; overflow:clip; display:flex; align-items:center; }
 .cinema-head{
   position:absolute; top:clamp(2.2rem,6vh,4.5rem); left:var(--pad); z-index:5; color:#fff;
 }
@@ -1119,13 +1119,22 @@ footer{
   .vrow{ grid-template-columns:88px 1fr; gap:.9rem; }
   .foot-mega h2{ font-size:clamp(1.9rem,9vw,3.4rem); }
 
-  /* hero CTAs: full-width, thumb-sized, centered */
-  .hero-foot{ gap:1.3rem; }
-  .hero-cta{ width:100%; }
-  .hero-cta .pill{
-    flex:1 1 auto; justify-content:center;
-    padding:1.1rem 1.2rem; font-size:.78rem; min-height:52px;
+  /* hero CTAs: compact pills sharing the bottom line with the scroll cue */
+  .hero-body{ padding-bottom:max(1.7rem, env(safe-area-inset-bottom)); }
+  .hero-foot{ gap:1.1rem; }
+  .hero-foot p{ font-size:.92rem; margin-bottom:.1rem; }
+  .hero-cta{
+    width:calc(100% - 64px);   /* leave the corner to the scroll cue */
+    gap:.55rem;
   }
+  .hero-cta .pill{
+    flex:0 1 auto; justify-content:center;
+    min-height:42px; padding:.7rem 1.15rem;
+    font-size:.6rem; letter-spacing:.12em; gap:.5rem;
+  }
+  .hero-cta .pill svg{ width:12px; height:12px; }
+  .hero-scrollcue span{ display:none; }   /* wheel only — quiet corner mark */
+  .hero-scrollcue{ bottom:max(1.9rem, env(safe-area-inset-bottom)); }
   .nav-pill{ min-height:44px; }
 
   /* text over imagery: shadow reinforcement on top of gradients */
@@ -1156,7 +1165,7 @@ footer{
   .rv,.clip-img{ opacity:1; transform:none; filter:none; clip-path:none; }
   .verse-text .w{ opacity:1; filter:none; }
   .story{ height:auto; } .story-stage{ position:static; height:auto; }
-  .scene{ position:relative; opacity:1!important; height:100svh; }
+  .scene{ position:relative; opacity:1!important; height:100svh; height:100dvh; }
   .scene > .scene-body > *{ opacity:1; transform:none; filter:none; }
   .verse{ height:auto; } .verse-stage{ position:static; height:auto; padding:6rem var(--pad); }
   .cinema{ height:auto; } .cinema-stage{ position:static; height:auto; padding:6rem 0; }
@@ -1894,6 +1903,11 @@ footer{
   }
   window.addEventListener("resize", measure, { passive:true });
   window.addEventListener("load", measure);
+  /* mobile URL-bar collapse/expand changes the viewport without a
+     classic resize in some browsers — track it directly */
+  if (window.visualViewport){
+    window.visualViewport.addEventListener("resize", measure, { passive:true });
+  }
 
   /* split verse into words */
   (function(){
