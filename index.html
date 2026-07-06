@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="St. Mary's Orthodox Valliapally, Jalahalli, Bangalore — a parish of the Malankara Orthodox Syrian Church. A story of grace in four chapters.">
+<meta name="theme-color" content="#faf3e3">
+<meta property="og:title" content="St. Mary's Orthodox Valliapally — Jalahalli, Bangalore">
+<meta property="og:description" content="All generations shall call me blessed. Worship with us in Jalahalli.">
+<title>St. Mary's Orthodox Valliapally — Jalahalli, Bangalore</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   ST. MARY'S ORTHODOX VALLIAPALLY · JALAHALLI
+   "The Magnificat" — a scroll-driven story in four chapters.
+   Golden-hour palette drawn from the church's own photographs.
+   ================================================================ */
+
+:root{
+  --bg:       #faf3e3;
+  --bg-2:     #f3e8cf;
+  --white:    #fffdf6;
+  --ink:      #2b2013;
+  --ink-2:    #55462e;
+  --stone:    #8a795c;
+  --faint:    #bfae8c;
+  --line:     #e7dabb;
+  --gold:     #c19122;
+  --gold-soft:#e2b45a;
+  --gold-deep:#8f6a14;
+  --red:      #8f6a14;   /* accent unified to deep bronze-gold — no red in the theme */
+  --dark:     #221808;
+
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'Inter', system-ui, sans-serif;
+
+  --ease: cubic-bezier(.19,1,.22,1);
+  --ease-2: cubic-bezier(.65,.05,0,1);
+
+  --pad: clamp(1.15rem, 4.5vw, 4.5rem);
+
+  --fs-mega:  clamp(2.6rem, 10vw, 10rem);
+  --fs-hero:  clamp(2.5rem, 7.6vw, 8rem);
+  --fs-h2:    clamp(2rem, 5.4vw, 5rem);
+  --fs-body:  clamp(.98rem, 1.1vw, 1.12rem);
+  --fs-label: .7rem;
+}
+
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:auto; }
+body{
+  font-family:var(--sans); font-weight:400;
+  background:var(--bg); color:var(--ink);
+  font-size:var(--fs-body); line-height:1.7;
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+}
+body.lock{ overflow:hidden; }
+
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+::selection{ background:var(--red); color:#fff; }
+:focus-visible{ outline:2px solid var(--red); outline-offset:4px; }
+
+.skip-link{
+  position:fixed; top:-100px; left:1rem; z-index:400;
+  background:var(--ink); color:#fff; padding:.7rem 1.4rem; font-size:.85rem;
+  transition:top .3s;
+}
+.skip-link:focus{ top:1rem; }
+
+/* ---------- film grain (very subtle) ---------- */
+.grain{
+  position:fixed; inset:-100%; z-index:300; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.035; animation:grain 9s steps(10) infinite;
+}
+@keyframes grain{
+  0%,100%{ transform:translate(0,0);} 10%{ transform:translate(-3%,-5%);}
+  20%{ transform:translate(-7%,3%);} 30%{ transform:translate(4%,-7%);}
+  40%{ transform:translate(-3%,9%);} 50%{ transform:translate(-8%,-4%);}
+  60%{ transform:translate(7%,0);}   70%{ transform:translate(0,6%);}
+  80%{ transform:translate(2%,10%);} 90%{ transform:translate(-5%,4%);}
+}
+
+/* ---------- custom cursor ---------- */
+.cursor-dot,.cursor-ring{
+  position:fixed; top:0; left:0; z-index:350; pointer-events:none;
+  border-radius:50%; transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+.cursor-dot{ width:6px; height:6px; background:#fff; }
+.cursor-ring{
+  width:34px; height:34px; border:1px solid rgba(255,255,255,.9);
+  transition:width .35s var(--ease), height .35s var(--ease);
+}
+body.cursor-grow .cursor-ring{ width:68px; height:68px; }
+@media (pointer:coarse){ .cursor-dot,.cursor-ring{ display:none; } }
+
+/* ================================================================
+   PRELOADER
+   ================================================================ */
+#loader{
+  position:fixed; inset:0; z-index:390; display:flex;
+  align-items:flex-end; justify-content:space-between;
+  padding:var(--pad);
+  pointer-events:none;
+}
+#loader .panel{
+  position:absolute; top:0; height:100%; width:50.5%;
+  background:linear-gradient(180deg, var(--dark), #3a2b12);
+  transition:transform 1.1s var(--ease-2);
+}
+#loader .panel.l{ left:0; }
+#loader .panel.r{ right:0; }
+#loader.done .panel.l{ transform:translateX(-101%); }
+#loader.done .panel.r{ transform:translateX(101%); }
+#loader .load-name{
+  position:relative; z-index:2; color:var(--bg);
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.1rem,3vw,1.9rem); line-height:1.35;
+  transition:opacity .5s;
+}
+#loader .load-name em{ font-style:italic; color:var(--gold-soft); }
+#loader .load-count{
+  position:relative; z-index:2; color:var(--bg);
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2.6rem,9vw,7rem); line-height:1;
+  font-variant-numeric:tabular-nums;
+  transition:opacity .5s;
+}
+#loader.done .load-name, #loader.done .load-count{ opacity:0; }
+
+/* ================================================================
+   FIXED CHROME
+   ================================================================ */
+.progress{ position:fixed; top:0; left:0; right:0; height:2px; z-index:210; }
+.progress span{
+  display:block; height:100%;
+  background:linear-gradient(90deg, var(--gold), var(--red));
+  transform-origin:left; transform:scaleX(0);
+}
+
+header.nav{
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem var(--pad);
+  transition:background .5s, box-shadow .5s, padding .5s;
+}
+header.nav.solid{
+  background:rgba(250,243,227,.92);
+  -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--line);
+  padding-block:.6rem;
+}
+.nav-brand{ display:flex; align-items:center; gap:.85rem; z-index:230; min-width:0; }
+.brand-mark{
+  width:46px; height:46px; flex:none; border-radius:50%;
+  padding:2px;
+  background:linear-gradient(150deg, var(--gold-soft), var(--gold-deep));
+  box-shadow:0 3px 14px rgba(43,32,19,.3);
+}
+.brand-mark img{
+  width:100%; height:100%; object-fit:cover; object-position:center 30%;
+  border-radius:50%; display:block;
+}
+.nav-brand .t{ min-width:0; }
+.nav-brand .t b{
+  display:block; font-family:var(--serif); font-weight:500;
+  font-size:clamp(.82rem,2.4vw,1rem); color:var(--ink); line-height:1.25;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.nav-brand .t span{
+  font-size:.58rem; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--stone); font-weight:600;
+}
+header.nav.on-hero:not(.solid) .nav-brand .t b{ color:#fff; text-shadow:0 1px 12px rgba(30,18,4,.5); }
+header.nav.on-hero:not(.solid) .nav-brand .t span{ color:rgba(255,246,225,.85); }
+
+.nav-menu{ display:flex; align-items:center; gap:2rem; }
+.nav-menu a{
+  font-size:.78rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-2); position:relative; padding:.4rem 0;
+}
+.nav-menu a::after{
+  content:""; position:absolute; left:0; bottom:0; height:1px; width:100%;
+  background:currentColor; transform:scaleX(0); transform-origin:right;
+  transition:transform .5s var(--ease);
+}
+.nav-menu a:hover::after{ transform:scaleX(1); transform-origin:left; }
+header.nav.on-hero:not(.solid) .nav-menu a{ color:rgba(255,248,231,.92); text-shadow:0 1px 10px rgba(30,18,4,.4); }
+.nav-pill{
+  font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  padding:.75rem 1.5rem; border-radius:100px;
+  background:var(--ink); color:#fff;
+  transition:background .35s, transform .35s var(--ease);
+  white-space:nowrap;
+}
+.nav-pill:hover{ background:var(--red); transform:translateY(-2px); }
+header.nav.on-hero:not(.solid) .nav-pill{ background:rgba(255,253,246,.95); color:var(--ink); }
+
+.burger{ display:none; width:46px; height:46px; position:relative; z-index:230; flex:none; }
+.burger i{
+  position:absolute; left:11px; width:24px; height:2px; background:var(--ink);
+  transition:all .45s var(--ease); border-radius:2px;
+}
+header.nav.on-hero:not(.solid) .burger i{ background:#fff; }
+body.menu-open .burger i{ background:var(--bg)!important; }
+.burger i:nth-child(1){ top:18px; } .burger i:nth-child(2){ top:26px; }
+body.menu-open .burger i:nth-child(1){ top:22px; transform:rotate(45deg); }
+body.menu-open .burger i:nth-child(2){ top:22px; transform:rotate(-45deg); }
+@media (max-width:1080px){ .nav-menu{ display:none; } .burger{ display:block; } }
+@media (max-width:560px){ .nav-pill{ display:none; } }
+
+/* full menu overlay */
+.menu{
+  position:fixed; inset:0; z-index:220;
+  background:radial-gradient(120% 90% at 50% 110%, #3d2c10, var(--dark) 60%);
+  color:var(--bg);
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 var(--pad);
+  clip-path:circle(0% at calc(100% - 3rem) 3rem);
+  transition:clip-path .9s var(--ease-2);
+  visibility:hidden;
+}
+body.menu-open .menu{ clip-path:circle(150% at calc(100% - 3rem) 3rem); visibility:visible; }
+.menu a.mi{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2rem,8vw,4.4rem); line-height:1.16;
+  display:flex; align-items:baseline; gap:1.2rem;
+  padding:.32rem 0; width:fit-content;
+  opacity:0; transform:translateY(30px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease), color .3s;
+}
+.menu a.mi:hover{ color:var(--gold-soft); font-style:italic; }
+.menu a.mi small{ font-family:var(--sans); font-size:.68rem; letter-spacing:.25em; color:var(--gold); }
+body.menu-open .menu a.mi{ opacity:1; transform:none; }
+body.menu-open .menu a.mi:nth-child(1){ transition-delay:.25s; }
+body.menu-open .menu a.mi:nth-child(2){ transition-delay:.32s; }
+body.menu-open .menu a.mi:nth-child(3){ transition-delay:.39s; }
+body.menu-open .menu a.mi:nth-child(4){ transition-delay:.46s; }
+body.menu-open .menu a.mi:nth-child(5){ transition-delay:.53s; }
+body.menu-open .menu a.mi:nth-child(6){ transition-delay:.6s; }
+.menu .menu-foot{
+  position:absolute; bottom:max(1.6rem, env(safe-area-inset-bottom)); left:var(--pad); right:var(--pad);
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:.76rem; color:rgba(250,243,227,.55);
+  opacity:0; transition:opacity .8s .6s;
+}
+body.menu-open .menu .menu-foot{ opacity:1; }
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{
+  position:relative; height:100svh; min-height:560px; overflow:clip;
+  background:var(--dark);
+}
+.hero-media{ position:absolute; inset:0; will-change:transform; }
+/* soft-focus backdrop fills the stage; the photograph sits whole on top */
+.hero-media .hero-blur{
+  position:absolute; left:-6%; top:-6%; width:112%; height:112%;
+  object-fit:cover; object-position:center 30%;
+  filter:blur(44px) saturate(1.2) brightness(.92);
+}
+.hero-media .hero-full{
+  position:absolute; top:0; left:50%; height:100%; width:auto; max-width:none;
+  transform:translateX(-50%) scale(1.05);
+  animation:heroZoom 3.6s var(--ease) forwards; animation-play-state:paused;
+  /* feathered edges — the photograph dissolves into its own blurred glow */
+  -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-image:linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+body.loaded .hero-media .hero-full{ animation-play-state:running; }
+@keyframes heroZoom{ to{ transform:translateX(-50%) scale(1); } }
+.hero-media::after{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(5deg, rgba(34,24,8,.78) 6%, rgba(34,24,8,.26) 36%, transparent 60%),
+    linear-gradient(180deg, rgba(34,24,8,.28), transparent 22%);
+}
+@media (max-width:860px){
+  .hero-media .hero-blur{ display:none; }
+  .hero-media .hero-full{
+    left:0; width:100%; height:100%; transform:none; animation:none;
+    object-fit:cover; object-position:center 30%;
+    -webkit-mask-image:none; mask-image:none;
+  }
+}
+
+.hero-body{
+  position:absolute; inset:0; z-index:3; color:#fff;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:0 var(--pad) clamp(4.2rem,9vh,7rem);
+  will-change:transform, opacity;
+}
+.hero-top-note{
+  position:absolute; top:7.2rem; right:var(--pad); text-align:right;
+  font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; font-weight:500;
+  color:rgba(255,246,225,.85); line-height:2.1;
+  text-shadow:0 1px 10px rgba(30,18,4,.5);
+  max-width:240px;
+}
+@media (max-width:760px){ .hero-top-note{ display:none; } }
+
+.hero-kicker{
+  display:flex; align-items:center; gap:1rem;
+  font-size:var(--fs-label); font-weight:600; letter-spacing:.3em; text-transform:uppercase;
+  color:rgba(255,246,225,.9); margin-bottom:1.5rem;
+  overflow:hidden;
+}
+.hero-kicker > *{ transform:translateY(130%); transition:transform 1s var(--ease) .35s; }
+body.loaded .hero-kicker > *{ transform:none; }
+.hero-kicker i{ font-style:normal; width:3rem; height:1px; background:var(--gold-soft); flex:none; }
+
+h1.hero-line{
+  font-family:var(--serif); font-weight:300;
+  font-size:var(--fs-hero); line-height:.98; letter-spacing:-.015em;
+  max-width:13ch; margin-bottom:1.8rem;
+  text-shadow:0 2px 30px rgba(30,18,4,.35);
+}
+h1.hero-line .lw{ display:block; overflow:hidden; padding-bottom:.07em; margin-bottom:-.07em; }
+h1.hero-line .lw > span{
+  display:inline-block; transform:translateY(112%) rotate(1.5deg);
+  transform-origin:left bottom;
+  transition:transform 1.4s var(--ease-2);
+}
+body.loaded h1.hero-line .lw:nth-child(1) > span{ transition-delay:.45s; transform:none; }
+body.loaded h1.hero-line .lw:nth-child(2) > span{ transition-delay:.58s; transform:none; }
+body.loaded h1.hero-line .lw:nth-child(3) > span{ transition-delay:.71s; transform:none; }
+h1.hero-line em{ font-style:italic; color:#ffe9b8; }
+
+.hero-foot{
+  display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; flex-wrap:wrap;
+  opacity:0; transform:translateY(20px);
+  transition:opacity 1.1s var(--ease) 1.1s, transform 1.1s var(--ease) 1.1s;
+}
+body.loaded .hero-foot{ opacity:1; transform:none; }
+.hero-foot p{
+  max-width:44ch; color:rgba(255,248,231,.9); font-weight:300;
+  font-size:clamp(.92rem,1.1vw,1.05rem);
+  text-shadow:0 1px 12px rgba(30,18,4,.4);
+}
+.hero-cta{ display:flex; gap:.8rem; flex-wrap:wrap; }
+
+.pill{
+  position:relative; display:inline-flex; align-items:center; gap:.7rem;
+  font-size:.74rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+  padding:1rem 1.9rem; border-radius:100px; overflow:hidden; isolation:isolate;
+  transition:transform .4s var(--ease), background .35s, color .35s, border-color .35s, box-shadow .4s;
+}
+.pill::before{ /* sheen sweep */
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  transform:translateX(-120%); transition:transform .7s var(--ease);
+}
+.pill:hover{ transform:translateY(-3px); }
+.pill:hover::before{ transform:translateX(120%); }
+.pill svg{ width:14px; height:14px; flex:none; }
+.pill-white{ background:#fffdf6; color:var(--ink); box-shadow:0 10px 30px -12px rgba(30,18,4,.5); }
+.pill-line-w{ border:1px solid rgba(255,246,225,.6); color:#fff; }
+.pill-line-w:hover{ border-color:#fff; background:rgba(255,255,255,.12); }
+.pill-ink{ background:var(--ink); color:#fff; }
+.pill-ink:hover{ background:var(--red); }
+.pill-gold{ background:linear-gradient(120deg, var(--gold-soft), var(--gold)); color:var(--dark); box-shadow:0 10px 28px -12px rgba(196,144,31,.7); }
+
+.hero-scrollcue{
+  position:absolute; bottom:max(1.6rem, env(safe-area-inset-bottom)); right:var(--pad); z-index:4;
+  display:flex; align-items:center; gap:.9rem;
+  color:rgba(255,246,225,.9);
+  font-size:.62rem; letter-spacing:.34em; text-transform:uppercase; font-weight:600;
+  opacity:0; transition:opacity 1s 1.7s;
+}
+body.loaded .hero-scrollcue{ opacity:1; }
+.hero-scrollcue .wheel{
+  width:25px; height:40px; border:1px solid rgba(255,246,225,.7); border-radius:100px; position:relative;
+}
+.hero-scrollcue .wheel::after{
+  content:""; position:absolute; left:50%; top:8px; width:3px; height:8px;
+  background:var(--gold-soft); border-radius:3px; transform:translateX(-50%);
+  animation:wheel 1.9s var(--ease) infinite;
+}
+@keyframes wheel{ 0%{ opacity:1; transform:translate(-50%,0);} 70%{ opacity:0; transform:translate(-50%,13px);} 100%{ opacity:0;} }
+
+/* ================================================================
+   SHARED
+   ================================================================ */
+.act{
+  display:flex; align-items:center; gap:1.1rem;
+  font-size:var(--fs-label); font-weight:600; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--red);
+}
+.act i{ font-style:normal; width:2.6rem; height:1px; background:var(--red); flex:none; }
+
+.rv{
+  opacity:0; transform:translateY(34px); filter:blur(5px);
+  transition:opacity 1.1s var(--ease), transform 1.1s var(--ease), filter 1.1s var(--ease);
+}
+.rv.in{ opacity:1; transform:none; filter:blur(0); }
+.rv-1{ transition-delay:.1s; } .rv-2{ transition-delay:.2s; } .rv-3{ transition-delay:.3s; }
+.clip-img{ clip-path:inset(0 0 100% 0); transition:clip-path 1.3s var(--ease-2); }
+.clip-img.in{ clip-path:inset(0 0 0 0); }
+
+/* ================================================================
+   STORY — continuous crossfade scrollytelling
+   ================================================================ */
+.story{ position:relative; height:400vh; background:var(--dark); }
+.story-stage{ position:sticky; top:0; height:100svh; overflow:clip; }
+.scene{ position:absolute; inset:0; opacity:0; pointer-events:none; will-change:opacity; }
+.scene-media{ position:absolute; inset:0; overflow:clip; }
+.scene-media img{
+  width:100%; height:110%; object-fit:cover; will-change:transform;
+}
+.scene-media::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(12deg, rgba(30,18,4,.9) 14%, rgba(30,18,4,.42) 52%, rgba(30,18,4,.18));
+}
+.scene[data-pos="sky"] .scene-media img{ object-position:center 8%; }
+.scene[data-pos="altar"] .scene-media img{ object-position:center 42%; }
+.scene[data-pos="low"] .scene-media img{ object-position:center 72%; }
+
+/* typographic scene */
+.scene.typo{ background:radial-gradient(90% 90% at 50% 24%, #fff8e6, var(--bg) 72%); }
+.scene.typo .scene-media{ display:none; }
+
+/* ghost chapter numeral */
+.scene .ghost{
+  position:absolute; right:-.05em; bottom:-.14em; z-index:1;
+  font-family:var(--serif); font-style:italic; font-weight:300;
+  font-size:clamp(11rem, 34vw, 30rem); line-height:1;
+  color:transparent; -webkit-text-stroke:1px rgba(255,233,184,.16);
+  pointer-events:none; user-select:none; will-change:transform;
+}
+.scene.typo .ghost{ -webkit-text-stroke:1px rgba(143,106,20,.18); }
+
+.scene-body{
+  position:absolute; inset:0; z-index:2; color:#fff;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:0 var(--pad) clamp(5.6rem,13vh,7.5rem);
+  will-change:transform;
+}
+.scene-num{
+  font-family:var(--serif); font-style:italic; font-weight:300;
+  font-size:clamp(.95rem,1.4vw,1.25rem); color:var(--gold-soft);
+  margin-bottom:.9rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.scene-num::after{ content:""; width:3.4rem; height:1px; background:currentColor; opacity:.5; }
+.scene h2{
+  font-family:var(--serif); font-weight:300;
+  font-size:var(--fs-h2); line-height:1.02; letter-spacing:-.01em;
+  max-width:15ch; margin-bottom:1.2rem;
+}
+.scene h2 em{ font-style:italic; color:#ffe9b8; }
+.scene p{ max-width:52ch; color:rgba(255,248,231,.92); font-weight:300; font-size:clamp(.92rem,1.1vw,1.05rem); }
+.scene > .scene-body > *{
+  opacity:0; transform:translateY(30px); filter:blur(6px);
+  transition:opacity 1s var(--ease), transform 1s var(--ease), filter 1s var(--ease);
+}
+.scene.on > .scene-body > *{ opacity:1; transform:none; filter:blur(0); }
+.scene.on > .scene-body > *:nth-child(1){ transition-delay:.1s; }
+.scene.on > .scene-body > *:nth-child(2){ transition-delay:.22s; }
+.scene.on > .scene-body > *:nth-child(3){ transition-delay:.34s; }
+
+.scene.typo .scene-body{
+  justify-content:center; align-items:center; text-align:center; color:var(--ink);
+}
+.scene.typo .scene-num{ color:var(--red); justify-content:center; }
+.scene.typo h2{ font-size:var(--fs-mega); line-height:.95; max-width:none; letter-spacing:-.02em; }
+.scene.typo h2 em{ color:var(--red); }
+.scene.typo p{ color:var(--stone); margin-inline:auto; }
+
+/* chapter rail */
+.story-rail{
+  position:absolute; right:var(--pad); top:50%; transform:translateY(-50%);
+  z-index:5; display:flex; flex-direction:column; gap:1.4rem;
+}
+.rail-item{
+  display:flex; align-items:center; gap:.8rem; justify-content:flex-end;
+  font-size:.6rem; letter-spacing:.26em; text-transform:uppercase; font-weight:600;
+  color:rgba(255,246,225,.55); transition:color .4s; cursor:pointer;
+}
+.rail-item .bar{ width:2.1rem; height:1px; background:currentColor; transition:width .5s var(--ease); }
+.rail-item.on{ color:#ffe9b8; }
+.rail-item.on .bar{ width:3.5rem; }
+.story[data-scene="1"] .rail-item{ color:rgba(43,32,19,.4); }
+.story[data-scene="1"] .rail-item.on{ color:var(--red); }
+@media (max-width:860px){
+  .story-rail{
+    flex-direction:row; top:auto; right:auto;
+    bottom:max(1.5rem, env(safe-area-inset-bottom));
+    left:var(--pad); transform:none; gap:1.1rem;
+  }
+  .rail-item span:first-child{ display:none; }
+  .rail-item .bar{ width:1.5rem; }
+  .rail-item.on .bar{ width:2.6rem; }
+}
+
+/* ================================================================
+   VERSE — word illumination
+   ================================================================ */
+.verse{ position:relative; height:180vh; background:var(--bg); }
+.verse-stage{
+  position:sticky; top:0; height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:0 var(--pad);
+  background:radial-gradient(70% 55% at 50% 42%, #fff7e2, transparent 75%);
+}
+.verse-stage .act{ margin-bottom:2.2rem; }
+.verse-text{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.65rem,4.4vw,3.7rem); line-height:1.34;
+  max-width:22ch; letter-spacing:-.01em; text-wrap:balance;
+}
+.verse-text .w{ opacity:.1; filter:blur(2px); transition:opacity .4s linear, filter .4s linear; }
+.verse-text .w.lit{ opacity:1; filter:blur(0); }
+.verse-cite{
+  margin-top:2.2rem; font-size:.68rem; font-weight:600;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--stone);
+}
+
+/* ================================================================
+   LEGACY
+   ================================================================ */
+.legacy{ background:var(--bg); padding:clamp(4.5rem,9vw,9rem) 0; overflow:clip; }
+.legacy-grid{
+  display:grid; grid-template-columns:1.1fr .9fr;
+  gap:clamp(3rem,7vw,7rem);
+  padding:0 var(--pad); max-width:1500px; margin-inline:auto;
+  align-items:center;
+}
+.legacy-copy h2{
+  font-family:var(--serif); font-weight:300;
+  font-size:var(--fs-h2); line-height:1.05; letter-spacing:-.01em;
+  margin:1.1rem 0 1.5rem;
+}
+.legacy-copy h2 em{ font-style:italic; color:var(--red); }
+.legacy-copy p{ color:var(--ink-2); max-width:58ch; }
+.legacy-copy p + p{ margin-top:1.1rem; }
+.legacy-stats{
+  display:flex; gap:clamp(1.4rem,4vw,3.4rem); flex-wrap:wrap;
+  margin-top:2.6rem; padding-top:2rem; border-top:1px solid var(--line);
+}
+.lstat b{
+  display:flex; align-items:baseline;
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(2.2rem,4.4vw,3.7rem); line-height:1; color:var(--ink);
+}
+.lstat span{
+  font-size:.64rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--stone);
+}
+.legacy-media{ position:relative; min-height:520px; }
+.lm{
+  position:absolute; overflow:clip; will-change:transform;
+  box-shadow:0 40px 80px -40px rgba(43,32,19,.5);
+}
+.lm img{ width:100%; height:100%; object-fit:cover; }
+.lm-1{ left:0; top:4%; width:72%; aspect-ratio:3/4; border-radius:300px 300px 0 0; }
+.lm-2{ right:0; top:36%; width:44%; aspect-ratio:3/4; border-radius:200px 200px 10px 10px; }
+.lm-2 img{ object-position:center 20%; }
+.lm-3{ left:14%; bottom:-4%; width:40%; aspect-ratio:4/3; border:6px solid var(--bg); border-radius:8px; }
+.lm-3 img{ object-position:center 80%; }
+.legacy-media .seal{
+  position:absolute; right:4%; top:4%; width:112px; height:112px;
+  animation:spin 24s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.legacy-media .seal text{
+  font-family:var(--sans); font-size:8px; letter-spacing:.3em; text-transform:uppercase;
+  fill:var(--gold-deep); font-weight:600;
+}
+.legacy-media .seal .star{ fill:var(--red); }
+@media (max-width:960px){
+  .legacy-grid{ grid-template-columns:1fr; }
+  .legacy-media{ min-height:0; aspect-ratio:1/1.05; max-width:520px; order:-1; margin-inline:auto; width:100%; }
+}
+
+/* ================================================================
+   KINETIC TYPE
+   ================================================================ */
+.kinetic{
+  padding:clamp(1.8rem,4vw,3.4rem) 0;
+  background:linear-gradient(180deg, var(--bg), var(--bg-2));
+  border-block:1px solid var(--line);
+  overflow:clip; white-space:nowrap;
+}
+.kinetic .row{ display:flex; width:max-content; will-change:transform; }
+.kinetic .chunk{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2.4rem,7vw,6.4rem); line-height:1.05;
+  padding-right:3rem; letter-spacing:-.01em;
+  display:flex; align-items:center; gap:3rem; color:var(--ink);
+}
+.kinetic .chunk em{ font-style:italic; color:var(--red); }
+.kinetic .chunk svg{ width:.44em; height:.44em; flex:none; color:var(--gold); }
+
+/* ================================================================
+   WORSHIP — one compact tabbed panel
+   ================================================================ */
+.worship{ background:var(--bg-2); padding:clamp(4.5rem,9vw,8rem) 0; }
+.worship-wrap{ padding:0 var(--pad); max-width:1200px; margin-inline:auto; }
+.worship-head{
+  display:grid; grid-template-columns:1fr auto; align-items:end; gap:2rem;
+  margin-bottom:clamp(2.2rem,4.5vw,3.4rem);
+}
+.worship-head h2{
+  font-family:var(--serif); font-weight:300; font-size:var(--fs-h2);
+  line-height:1.05; margin-top:1.1rem;
+}
+.worship-head h2 em{ font-style:italic; color:var(--red); }
+@media (max-width:800px){ .worship-head{ grid-template-columns:1fr; } }
+
+.wcard{
+  background:var(--white); border:1px solid var(--line); border-radius:24px;
+  box-shadow:0 30px 70px -50px rgba(43,32,19,.5);
+  overflow:clip;
+}
+.wtabs{
+  position:relative; display:flex;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto; scrollbar-width:none;
+}
+.wtabs::-webkit-scrollbar{ display:none; }
+.wtab{
+  flex:1 0 auto; padding:1.3rem 1.6rem; text-align:center;
+  font-size:.74rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--stone); transition:color .35s; white-space:nowrap;
+  min-width:110px;
+}
+.wtab:hover{ color:var(--ink); }
+.wtab[aria-selected="true"]{ color:var(--red); }
+.wtab-ind{
+  position:absolute; bottom:-1px; height:2px;
+  background:linear-gradient(90deg, var(--gold), var(--red));
+  transition:left .5s var(--ease), width .5s var(--ease);
+}
+.wpanels{ position:relative; padding:clamp(1.6rem,3.5vw,2.8rem); }
+.wpanel{ display:none; }
+.wpanel.active{ display:block; animation:panelIn .6s var(--ease); }
+@keyframes panelIn{
+  from{ opacity:0; transform:translateY(18px); filter:blur(4px); }
+  to{ opacity:1; transform:none; filter:blur(0); }
+}
+.wpanel-note{
+  font-family:var(--serif); font-style:italic; color:var(--stone);
+  margin-bottom:1.4rem; font-size:1.02rem;
+}
+.wgrid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:.9rem;
+}
+.slot{
+  border:1px solid var(--line); border-radius:14px; padding:1.25rem 1.3rem 1.1rem;
+  background:var(--bg);
+  transition:background .35s, border-color .35s, transform .4s var(--ease), box-shadow .4s;
+}
+.slot:hover{
+  background:#fff; border-color:var(--gold-soft); transform:translateY(-4px);
+  box-shadow:0 16px 30px -18px rgba(196,144,31,.45);
+}
+.slot b{
+  font-family:var(--serif); font-weight:500; font-size:1.45rem; color:var(--red);
+  display:block; line-height:1.15;
+}
+.slot i{
+  font-style:normal; display:block; margin:.3rem 0 .25rem;
+  font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+}
+.slot p{ font-size:.82rem; color:var(--stone); line-height:1.55; }
+.worship-foot{
+  display:flex; justify-content:center; margin-top:clamp(1.8rem,3.5vw,2.6rem);
+}
+
+/* ================================================================
+   CINEMA — horizontal gallery
+   ================================================================ */
+.cinema{ position:relative; height:260vh; background:var(--dark); }
+.cinema-stage{ position:sticky; top:0; height:100svh; overflow:clip; display:flex; align-items:center; }
+.cinema-head{
+  position:absolute; top:clamp(2.2rem,6vh,4.5rem); left:var(--pad); z-index:5; color:#fff;
+}
+.cinema-head .act{ color:var(--gold-soft); } .cinema-head .act i{ background:var(--gold-soft); }
+.cinema-head h2{
+  font-family:var(--serif); font-weight:300; font-size:clamp(1.7rem,3.4vw,3rem); margin-top:.8rem;
+}
+.cinema-head h2 em{ font-style:italic; color:#ffe9b8; }
+.cinema-track{
+  display:flex; gap:clamp(1.2rem,3vw,3rem);
+  padding:0 var(--pad); will-change:transform; align-items:center;
+}
+.frame{
+  position:relative; flex:none; overflow:clip; border-radius:16px;
+  width:clamp(290px, 46vw, 660px); aspect-ratio:4/3;
+  background:#3a2b12;
+}
+.frame.tall{ aspect-ratio:3/4; width:clamp(250px,30vw,420px); border-radius:250px 250px 14px 14px; }
+.frame img{
+  width:100%; height:100%; object-fit:cover;
+  transform:scale(1.05); transition:transform 1.2s var(--ease);
+}
+.frame:hover img{ transform:scale(1.12); }
+.frame figcaption{
+  position:absolute; left:1.2rem; bottom:1rem; z-index:2; color:#fff;
+  font-size:.64rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  text-shadow:0 2px 14px rgba(0,0,0,.75);
+  display:flex; align-items:center; gap:.7rem;
+}
+.frame figcaption::before{ content:""; width:1.5rem; height:1px; background:var(--gold-soft); }
+.frame.tall figcaption{ left:50%; transform:translateX(-50%); white-space:nowrap; }
+.frame.tall figcaption::before{ display:none; }
+.frame-quote{
+  flex:none; width:clamp(270px,34vw,470px); color:#fff;
+  font-family:var(--serif); font-weight:300; font-style:italic;
+  font-size:clamp(1.3rem,2.4vw,2rem); line-height:1.42;
+}
+.frame-quote small{
+  display:block; font-family:var(--sans); font-style:normal;
+  font-size:.64rem; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--gold-soft); margin-top:1.1rem;
+}
+.cinema-bar{
+  position:absolute; bottom:clamp(1.8rem,5vh,3.2rem); left:var(--pad); right:var(--pad); z-index:5;
+  height:1px; background:rgba(255,246,225,.22);
+}
+.cinema-bar span{
+  display:block; height:100%; background:var(--gold-soft);
+  transform-origin:left; transform:scaleX(0);
+}
+@media (max-width:640px){
+  .frame{ width:78vw; }
+  .frame.tall{ width:64vw; }
+  .frame-quote{ width:74vw; }
+}
+
+/* ================================================================
+   LIFE — organizations
+   ================================================================ */
+.life{ background:var(--bg); padding:clamp(4.5rem,9vw,9rem) 0; position:relative; }
+.life-head{ padding:0 var(--pad); max-width:1500px; margin:0 auto clamp(2.4rem,5vw,4rem); }
+.life-head h2{
+  font-family:var(--serif); font-weight:300; font-size:var(--fs-h2); line-height:1.05;
+  margin-top:1.1rem; max-width:16ch;
+}
+.life-head h2 em{ font-style:italic; color:var(--red); }
+.life-list{ border-top:1px solid var(--line); max-width:1500px; margin-inline:auto; }
+.lrow{
+  display:grid; grid-template-columns:auto 1fr auto auto; gap:clamp(1rem,3vw,3rem);
+  align-items:center; padding:clamp(1.2rem,2.6vw,2.1rem) var(--pad);
+  border-bottom:1px solid var(--line); position:relative;
+  transition:background .4s;
+}
+.lrow:hover{ background:var(--white); }
+.lrow .n{ font-family:var(--serif); font-style:italic; font-size:.95rem; color:var(--faint); width:2.2rem; }
+.lrow h3{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(1.35rem,3.2vw,2.5rem); line-height:1.12;
+  transition:transform .5s var(--ease), color .3s;
+}
+.lrow:hover h3{ transform:translateX(1rem); color:var(--red); }
+.lrow .desc{ font-size:.84rem; color:var(--stone); max-width:30ch; text-align:right; }
+.lrow .when{
+  font-size:.62rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold-deep); white-space:nowrap;
+}
+@media (max-width:820px){
+  .lrow{ grid-template-columns:auto 1fr; row-gap:.2rem; }
+  .lrow .desc{ display:none; }
+  .lrow .when{ grid-column:2; justify-self:start; }
+}
+.hover-photo{
+  position:fixed; z-index:150; width:250px; aspect-ratio:3/4;
+  border-radius:125px 125px 10px 10px; overflow:clip; pointer-events:none;
+  opacity:0; transform:scale(.85) rotate(-3deg);
+  transition:opacity .35s var(--ease), transform .5s var(--ease);
+  box-shadow:0 30px 70px -25px rgba(43,32,19,.55);
+  will-change:transform;
+}
+.hover-photo.on{ opacity:1; transform:scale(1) rotate(0deg); }
+.hover-photo img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .35s;
+}
+.hover-photo img.show{ opacity:1; }
+@media (pointer:coarse){ .hover-photo{ display:none; } }
+
+/* ================================================================
+   NEWS
+   ================================================================ */
+.news{ background:var(--bg-2); padding:clamp(4.5rem,9vw,9rem) 0; }
+.news-head{
+  padding:0 var(--pad); max-width:1500px; margin:0 auto clamp(2.4rem,5vw,4rem);
+}
+.news-head h2{
+  font-family:var(--serif); font-weight:300; font-size:var(--fs-h2); line-height:1.05; margin-top:1.1rem;
+}
+.news-head h2 em{ font-style:italic; color:var(--red); }
+.news-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem;
+  padding:0 var(--pad); max-width:1500px; margin-inline:auto;
+}
+.ncard{
+  background:var(--white); border-radius:18px; padding:2rem 1.9rem;
+  display:flex; flex-direction:column; min-height:320px;
+  transition:transform .5s var(--ease), box-shadow .5s;
+  border:1px solid var(--line);
+  position:relative; overflow:clip;
+}
+.ncard::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg, var(--gold-soft), var(--red));
+  transform:scaleX(0); transform-origin:left; transition:transform .6s var(--ease);
+}
+.ncard:hover{ transform:translateY(-8px); box-shadow:0 40px 70px -40px rgba(43,32,19,.5); }
+.ncard:hover::before{ transform:scaleX(1); }
+.ncard .tag{
+  width:fit-content; font-size:.6rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--gold-deep); border:1px solid rgba(143,106,20,.4); border-radius:100px;
+  padding:.4rem .9rem; margin-bottom:auto;
+}
+.ncard .date{ font-family:var(--serif); font-style:italic; font-size:.98rem; color:var(--stone); margin:1.8rem 0 .5rem; }
+.ncard h3{
+  font-family:var(--serif); font-weight:400; font-size:clamp(1.4rem,2vw,1.85rem);
+  line-height:1.15; margin-bottom:.6rem;
+}
+.ncard p{ font-size:.88rem; color:var(--stone); }
+.ncard .go{
+  margin-top:1.5rem; display:inline-flex; align-items:center; gap:.6rem;
+  font-size:.7rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--ink);
+}
+.ncard .go svg{ width:14px; height:14px; transition:transform .35s var(--ease); }
+.ncard:hover .go svg{ transform:translateX(5px); }
+@media (max-width:900px){
+  .news-grid{ grid-template-columns:1fr; }
+  .ncard{ min-height:0; }
+}
+
+/* ================================================================
+   CALL
+   ================================================================ */
+.call{
+  position:relative; min-height:88svh; display:grid; place-items:center;
+  overflow:clip; text-align:center; color:#fff;
+}
+.call .bg{
+  position:absolute; inset:-14% 0; will-change:transform;
+  background:url("2.jpg") center 40%/cover no-repeat;
+}
+.call::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(30,18,4,.72), rgba(48,28,8,.55) 50%, rgba(30,18,4,.75));
+}
+.call-in{ position:relative; z-index:2; padding:6rem var(--pad); max-width:1000px; }
+.call-in .scene-num{ justify-content:center; }
+.call-in h2{
+  font-family:var(--serif); font-weight:300;
+  font-size:clamp(2.2rem,6.4vw,5.4rem); line-height:1.02; letter-spacing:-.015em;
+  margin-bottom:1.5rem; text-wrap:balance;
+}
+.call-in h2 em{ font-style:italic; color:#ffe9b8; }
+.call-in p{ color:rgba(255,248,231,.9); max-width:52ch; margin:0 auto 2.4rem; font-weight:300; }
+.call-cta{ display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
+
+/* ================================================================
+   VISIT
+   ================================================================ */
+.visit{ background:var(--bg); }
+.visit-grid{ display:grid; grid-template-columns:1fr 1.05fr; min-height:620px; }
+.visit-info{
+  padding:clamp(3.6rem,8vw,7rem) var(--pad);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.visit-info h2{
+  font-family:var(--serif); font-weight:300; font-size:var(--fs-h2);
+  line-height:1.05; margin:1.1rem 0 1rem;
+}
+.visit-info h2 em{ font-style:italic; color:var(--red); }
+.visit-info > p{ color:var(--ink-2); max-width:50ch; }
+.vrows{ margin-top:2.2rem; border-top:1px solid var(--line); }
+.vrow{
+  display:grid; grid-template-columns:minmax(96px,140px) 1fr; gap:1.2rem;
+  padding:1.2rem 0; border-bottom:1px solid var(--line);
+}
+.vrow b{
+  font-size:.64rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--stone); padding-top:.25rem;
+}
+.vrow p, .vrow a{ color:var(--ink-2); font-size:.94rem; }
+.vrow a{ border-bottom:1px solid var(--line); transition:color .3s, border-color .3s; width:fit-content; }
+.vrow a:hover{ color:var(--red); border-color:var(--red); }
+.visit-info .pill{ margin-top:2.2rem; width:fit-content; }
+.visit-map{ position:relative; min-height:420px; overflow:clip; }
+.visit-map iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+  filter:sepia(.22) saturate(.9);
+}
+@media (max-width:920px){ .visit-grid{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer{
+  background:
+    radial-gradient(90% 60% at 50% 0%, #3d2c10, transparent 70%),
+    var(--dark);
+  color:rgba(250,243,227,.75); overflow:clip;
+}
+.foot-mega{ padding:clamp(3.6rem,9vw,8rem) var(--pad) 0; text-align:center; }
+.foot-mega p.small{
+  font-size:.66rem; font-weight:600; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--gold-soft); margin-bottom:1.5rem;
+}
+.foot-mega h2{
+  font-family:var(--serif); font-weight:300; font-style:italic;
+  font-size:clamp(2.1rem,7.8vw,7.4rem); line-height:1.04; letter-spacing:-.015em;
+  color:var(--bg); text-wrap:balance;
+}
+.foot-mega h2 .stroke{
+  -webkit-text-stroke:1px rgba(227,179,76,.75); color:transparent; font-style:normal;
+}
+.orn{
+  display:flex; align-items:center; justify-content:center; gap:1.2rem;
+  padding:clamp(2rem,5vw,3.4rem) var(--pad);
+  color:var(--gold-soft);
+}
+.orn::before,.orn::after{
+  content:""; height:1px; flex:1; max-width:220px;
+  background:linear-gradient(90deg, transparent, currentColor);
+}
+.orn::after{ background:linear-gradient(90deg, currentColor, transparent); }
+.orn svg{ width:22px; height:22px; }
+.foot-grid{
+  display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:clamp(2rem,5vw,4rem);
+  padding:0 var(--pad) clamp(3rem,7vw,5rem);
+  max-width:1500px; margin-inline:auto;
+}
+.foot-brand{ display:flex; flex-direction:column; gap:1.1rem; align-items:flex-start; }
+.foot-brand .brand-mark{ width:58px; height:58px; }
+.foot-brand p{ font-size:.86rem; max-width:34ch; font-weight:300; }
+.foot-h{
+  font-size:.62rem; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+  color:rgba(227,179,76,.65); margin-bottom:1.1rem;
+}
+.foot-col a{
+  display:block; width:fit-content; font-size:.9rem; font-weight:300;
+  padding:.28rem 0; transition:color .3s, transform .35s var(--ease);
+}
+.foot-col a:hover{ color:#ffe9b8; transform:translateX(6px); }
+.socials{ display:flex; gap:.7rem; margin-top:.5rem; }
+.socials a{
+  width:42px; height:42px; border:1px solid rgba(227,179,76,.4); border-radius:50%;
+  display:grid; place-items:center;
+  transition:background .35s, color .35s, border-color .35s, transform .35s var(--ease);
+}
+.socials a:hover{ background:var(--gold-soft); border-color:var(--gold-soft); color:var(--dark); transform:translateY(-4px); }
+.socials svg{ width:16px; height:16px; }
+.foot-legal{
+  border-top:1px solid rgba(227,179,76,.18);
+  padding:1.3rem var(--pad) max(1.3rem, env(safe-area-inset-bottom));
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  font-size:.72rem; color:rgba(250,243,227,.45);
+}
+@media (max-width:940px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .foot-grid{ grid-template-columns:1fr; } }
+
+/* ================================================================
+   REDUCED MOTION
+   ================================================================ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms!important; transition-duration:.01ms!important; }
+  .grain{ display:none; }
+  .rv,.clip-img{ opacity:1; transform:none; filter:none; clip-path:none; }
+  .verse-text .w{ opacity:1; filter:none; }
+  .story{ height:auto; } .story-stage{ position:static; height:auto; }
+  .scene{ position:relative; opacity:1!important; height:100svh; }
+  .scene > .scene-body > *{ opacity:1; transform:none; filter:none; }
+  .verse{ height:auto; } .verse-stage{ position:static; height:auto; padding:6rem var(--pad); }
+  .cinema{ height:auto; } .cinema-stage{ position:static; height:auto; padding:6rem 0; }
+  .cinema-track{ overflow-x:auto; }
+  h1.hero-line .lw > span, .hero-kicker > *{ transform:none; }
+  .hero-foot,.hero-scrollcue{ opacity:1; transform:none; }
+}
+</style>
+</head>
+<body class="lock">
+
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="loader" aria-hidden="true">
+  <div class="panel l"></div>
+  <div class="panel r"></div>
+  <p class="load-name">St. Mary's Orthodox<br>Valliapally <em>· Jalahalli, Bangalore</em></p>
+  <p class="load-count" id="loadCount">0</p>
+</div>
+
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav on-hero" id="nav">
+  <a class="nav-brand" href="#top" data-cursor>
+    <span class="brand-mark">
+      <img src="1.png" alt="St. Mary's Orthodox Valliapally" width="46" height="46">
+    </span>
+    <span class="t">
+      <b>St. Mary's Orthodox Valliapally</b>
+      <span>Jalahalli · Bangalore</span>
+    </span>
+  </a>
+  <nav class="nav-menu" aria-label="Primary">
+    <a href="#story" data-cursor>The Story</a>
+    <a href="#worship" data-cursor>Worship</a>
+    <a href="#life" data-cursor>Community</a>
+    <a href="#news" data-cursor>News</a>
+    <a href="#visit" data-cursor>Visit</a>
+  </nav>
+  <div style="display:flex; gap:.9rem; align-items:center">
+    <a class="nav-pill" href="#visit" data-cursor>Plan a Visit</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <i></i><i></i>
+    </button>
+  </div>
+</header>
+
+<!-- full-screen menu -->
+<nav class="menu" id="menu" aria-label="Menu">
+  <a class="mi" href="#story"><small>01</small>The Story</a>
+  <a class="mi" href="#worship"><small>02</small>Worship</a>
+  <a class="mi" href="#life"><small>03</small>Community</a>
+  <a class="mi" href="#news"><small>04</small>News &amp; Feasts</a>
+  <a class="mi" href="#gallery"><small>05</small>Gallery</a>
+  <a class="mi" href="#visit"><small>06</small>Visit Us</a>
+  <div class="menu-foot">
+    <span>Jalahalli, Bengaluru – 560013</span>
+    <span>Malankara Orthodox Syrian Church</span>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top" aria-label="St. Mary's Orthodox Valliapally">
+  <div class="hero-media" id="heroMedia">
+    <img class="hero-blur" src="1.png" alt="" aria-hidden="true">
+    <img class="hero-full" src="1.png" alt="The white spires of St. Mary's Orthodox Valliapally against a golden evening sky" fetchpriority="high">
+  </div>
+
+  <p class="hero-top-note">Malankara Orthodox Syrian Church<br>Diocese of Bangalore<br>Jalahalli · Bengaluru</p>
+
+  <div class="hero-body" id="heroBody">
+    <p class="hero-kicker"><span><i></i></span><span>A story of grace, in four chapters</span></p>
+    <h1 class="hero-line">
+      <span class="lw"><span>Full of grace,</span></span>
+      <span class="lw"><span>full of</span></span>
+      <span class="lw"><span><em>light.</em></span></span>
+    </h1>
+    <div class="hero-foot">
+      <p>Beneath these white spires in Jalahalli, generations have gathered under the protection of the Holy Theotokos — the Mother of God, whom all generations call blessed.</p>
+      <div class="hero-cta">
+        <a class="pill pill-white" href="#story" data-cursor>
+          Begin the Story
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+        <a class="pill pill-line-w" href="#worship" data-cursor>Service Times</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scrollcue">
+    <span>Scroll</span>
+    <div class="wheel"></div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story" id="story" data-scene="0" aria-label="The story of St. Mary">
+  <div class="story-stage">
+
+    <!-- I · THE YES -->
+    <div class="scene" data-pos="sky">
+      <div class="scene-media"><img src="1.png" alt="Spires reaching into a golden sky" loading="eager"></div>
+      <span class="ghost" aria-hidden="true">I</span>
+      <div class="scene-body">
+        <p class="scene-num">Chapter I — The Yes</p>
+        <h2>“Behold the handmaid<br>of <em>the Lord.”</em></h2>
+        <p>A young woman of Nazareth is asked to carry the impossible. Her answer — one unguarded, courageous yes — changes the history of the world. Every church that bears her name begins with that yes.</p>
+      </div>
+    </div>
+
+    <!-- II · THE SONG -->
+    <div class="scene typo">
+      <span class="ghost" aria-hidden="true">II</span>
+      <div class="scene-body">
+        <p class="scene-num">Chapter II — The Song</p>
+        <h2>“My soul magnifies<br><em>the Lord.”</em></h2>
+        <p>The Magnificat — the oldest hymn of the Church, sung first by Mary herself. It has echoed for two thousand years, and it echoes still, every week, beneath the golden arches of this sanctuary.</p>
+      </div>
+    </div>
+
+    <!-- III · THE MOTHER -->
+    <div class="scene" data-pos="altar">
+      <div class="scene-media"><img src="2.jpg" alt="The radiant golden sanctuary of the Valliapally" loading="lazy"></div>
+      <span class="ghost" aria-hidden="true">III</span>
+      <div class="scene-body">
+        <p class="scene-num">Chapter III — The Mother</p>
+        <h2>“Behold<br><em>your mother.”</em></h2>
+        <p>From the cross, Christ gave His mother to His beloved disciple — and through him, to the whole Church. In the Orthodox East she is the Theotokos, the God-bearer: the first believer, and the mother of all who believe.</p>
+      </div>
+    </div>
+
+    <!-- IV · THE CHURCH -->
+    <div class="scene" data-pos="low">
+      <div class="scene-media"><img src="1.png" alt="The spires of St. Mary's Orthodox Valliapally at sunset" loading="lazy"></div>
+      <span class="ghost" aria-hidden="true">IV</span>
+      <div class="scene-body">
+        <p class="scene-num">Chapter IV — The Church</p>
+        <h2>A Valliapally<br>rises in <em>Jalahalli.</em></h2>
+        <p>Orthodox families who came north to Bengaluru carried her name with them. What began as a handful of households at prayer grew into a Valliapally — a great church — its white spires lifting the same ancient confession over Jalahalli.</p>
+      </div>
+    </div>
+
+    <div class="story-rail" aria-hidden="true">
+      <div class="rail-item on" data-go="0"><span>The Yes</span><span class="bar"></span></div>
+      <div class="rail-item" data-go="1"><span>The Song</span><span class="bar"></span></div>
+      <div class="rail-item" data-go="2"><span>The Mother</span><span class="bar"></span></div>
+      <div class="rail-item" data-go="3"><span>The Church</span><span class="bar"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERSE ============ -->
+<section class="verse" aria-label="Scripture">
+  <div class="verse-stage">
+    <p class="act"><i></i>Luke 1 : 48</p>
+    <p class="verse-text" id="verseText">From henceforth, all generations shall call me blessed.</p>
+    <p class="verse-cite">The Song of Mary · The Magnificat</p>
+  </div>
+</section>
+
+<!-- ============ LEGACY ============ -->
+<section class="legacy" id="legacy" aria-labelledby="legacy-title">
+  <div class="legacy-grid">
+    <div class="legacy-copy">
+      <p class="act rv"><i></i>Our Parish</p>
+      <h2 class="rv rv-1" id="legacy-title">A great church, built by <em>small acts of faith.</em></h2>
+      <div class="rv rv-2">
+        <p>“Valliapally” means <em>the great church</em> — but greatness here was never about size. It was built Sunday by Sunday: families who came to Jalahalli for work and stayed to build an altar, mothers who taught the faith at kitchen tables, choirs who learned the ancient melodies by heart.</p>
+        <p>Today St. Mary's Orthodox Valliapally is a living parish of the Malankara Orthodox Syrian Church, Diocese of Bangalore — a sanctuary of radiant gold beneath white spires, where the Holy Qurbana is offered and every soul is welcome.</p>
+      </div>
+      <div class="legacy-stats rv rv-3">
+        <div class="lstat"><b><span data-count="52">52</span></b><span>Sundays of Qurbana</span></div>
+        <div class="lstat"><b><span data-count="8">8</span></b><span>Days of the Nombu</span></div>
+        <div class="lstat"><b><span data-count="6">6</span></b><span>Spiritual organizations</span></div>
+      </div>
+    </div>
+
+    <div class="legacy-media">
+      <div class="lm lm-1 clip-img" data-depth="0.05">
+        <img src="1.png" alt="The church spires framed in an arch" loading="lazy">
+      </div>
+      <div class="lm lm-2 clip-img" data-depth="-0.08">
+        <img src="2.jpg" alt="Icons and arches of the sanctuary" loading="lazy">
+      </div>
+      <div class="lm lm-3 clip-img" data-depth="0.12">
+        <img src="2.jpg" alt="The altar of the Valliapally" loading="lazy">
+      </div>
+      <svg class="seal" viewBox="0 0 112 112" aria-hidden="true">
+        <defs><path id="circ" d="M56,56 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0"/></defs>
+        <text><textPath href="#circ">ALL GENERATIONS SHALL CALL ME BLESSED · JALAHALLI ·</textPath></text>
+        <path class="star" d="M56 44l3.2 8.8H68l-7 5.4 2.6 8.8-7.6-5.2-7.6 5.2 2.6-8.8-7-5.4h8.8z"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KINETIC TYPE ============ -->
+<div class="kinetic" aria-hidden="true">
+  <div class="row" id="kineticRow">
+    <div class="chunk">Grace <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> Mercy <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> <em>Magnificat</em> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg></div>
+    <div class="chunk">Grace <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> Mercy <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> <em>Magnificat</em> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg></div>
+    <div class="chunk">Grace <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> Mercy <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg> <em>Magnificat</em> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.4-6.3 4.4L8 13.8 2 9.2h7.6z"/></svg></div>
+  </div>
+</div>
+
+<!-- ============ WORSHIP — single tabbed panel ============ -->
+<section class="worship" id="worship" aria-labelledby="worship-title">
+  <div class="worship-wrap">
+    <div class="worship-head">
+      <div>
+        <p class="act rv"><i></i>Worship With Us</p>
+        <h2 class="rv rv-1" id="worship-title">The rhythm of <em>our week.</em></h2>
+      </div>
+      <a class="pill pill-ink rv rv-2" href="https://www.google.com/maps/search/?api=1&query=St+Marys+Orthodox+Church+Jalahalli+Bangalore" target="_blank" rel="noopener" data-cursor>
+        Get Directions
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="wcard rv">
+      <div class="wtabs" role="tablist" aria-label="Service timings">
+        <button class="wtab" id="wt-0" role="tab" aria-selected="true" aria-controls="wp-0" data-cursor>Sunday</button>
+        <button class="wtab" id="wt-1" role="tab" aria-selected="false" aria-controls="wp-1" data-cursor>Saturday</button>
+        <button class="wtab" id="wt-2" role="tab" aria-selected="false" aria-controls="wp-2" data-cursor>Weekdays</button>
+        <button class="wtab" id="wt-3" role="tab" aria-selected="false" aria-controls="wp-3" data-cursor>Office</button>
+        <span class="wtab-ind" id="wtabInd" aria-hidden="true"></span>
+      </div>
+
+      <div class="wpanels">
+        <div class="wpanel active" id="wp-0" role="tabpanel" aria-labelledby="wt-0">
+          <p class="wpanel-note">The principal gathering of the parish family — every seat welcome.</p>
+          <div class="wgrid">
+            <div class="slot"><b>7:30 AM</b><i>Morning Prayer</i><p>Gathering before the liturgy.</p></div>
+            <div class="slot"><b>8:30 AM</b><i>Holy Qurbana</i><p>The principal celebration of the week.</p></div>
+            <div class="slot"><b>11:00 AM</b><i>Sunday School</i><p>Classes for every age after the Qurbana.</p></div>
+            <div class="slot"><b>4:30 PM</b><i>Prayer Meetings</i><p>Area fellowships across the parish.</p></div>
+          </div>
+        </div>
+
+        <div class="wpanel" id="wp-1" role="tabpanel" aria-labelledby="wt-1" hidden>
+          <p class="wpanel-note">Begin and end the sabbath in stillness.</p>
+          <div class="wgrid">
+            <div class="slot"><b>6:30 AM</b><i>Morning Prayer</i><p>The day begins in quiet.</p></div>
+            <div class="slot"><b>7:00 AM</b><i>Holy Qurbana</i><p>The divine liturgy of the Malankara Orthodox Church.</p></div>
+            <div class="slot"><b>6:00 PM</b><i>Evening Prayer</i><p>Close the day in gratitude.</p></div>
+          </div>
+        </div>
+
+        <div class="wpanel" id="wp-2" role="tabpanel" aria-labelledby="wt-2" hidden>
+          <p class="wpanel-note">The week is threaded with prayer.</p>
+          <div class="wgrid">
+            <div class="slot"><b>6:00 PM</b><i>Evening Prayers</i><p>Every day — all are welcome.</p></div>
+            <div class="slot"><b>7:00 PM</b><i>Wednesday Intercession</i><p>Prayers to the Theotokos, 1st &amp; 3rd Wednesdays.</p></div>
+          </div>
+        </div>
+
+        <div class="wpanel" id="wp-3" role="tabpanel" aria-labelledby="wt-3" hidden>
+          <p class="wpanel-note">For certificates, membership and everything else.</p>
+          <div class="wgrid">
+            <div class="slot"><b>9 AM – 1 PM</b><i>Office Hours</i><p>Sunday, Monday &amp; Saturday.</p></div>
+            <div class="slot"><b>Anytime</b><i>Write to Us</i><p>office@stmarysvalliapally.in</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="worship-foot rv rv-1">
+      <a class="pill pill-gold" href="#visit" data-cursor>
+        Plan Your First Visit
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CINEMA ============ -->
+<section class="cinema" id="gallery" aria-label="Gallery">
+  <div class="cinema-stage">
+    <div class="cinema-head">
+      <p class="act"><i></i>Gallery</p>
+      <h2>Moments of <em>gold.</em></h2>
+    </div>
+
+    <div class="cinema-track" id="cinemaTrack">
+      <figure class="frame">
+        <img src="1.png" alt="White spires against the golden evening sky" loading="lazy">
+        <figcaption>The Spires at Dusk</figcaption>
+      </figure>
+      <div class="frame-quote">
+        “The Orthodox East calls her Theotokos — the God-bearer — and crowns her name in gold above every altar.”
+        <small>The Tradition of the Mother of God</small>
+      </div>
+      <figure class="frame tall">
+        <img src="2.jpg" alt="The golden arches of the sanctuary" loading="lazy" style="object-position:center 15%">
+        <figcaption>The Golden Arches</figcaption>
+      </figure>
+      <figure class="frame">
+        <img src="2.jpg" alt="The altar of the Valliapally in full light" loading="lazy">
+        <figcaption>The Sanctuary</figcaption>
+      </figure>
+      <figure class="frame tall">
+        <img src="1.png" alt="The bell tower at golden hour" loading="lazy" style="object-position:38% center">
+        <figcaption>The Bell Tower</figcaption>
+      </figure>
+      <div class="frame-quote">
+        Step inside. The sanctuary is open before every service — come early, and sit in the gold light.
+        <small><a href="#visit" style="color:#ffe9b8; border-bottom:1px solid var(--gold-soft)" data-cursor>Plan your visit →</a></small>
+      </div>
+    </div>
+
+    <div class="cinema-bar"><span id="cinemaBar"></span></div>
+  </div>
+</section>
+
+<!-- ============ LIFE ============ -->
+<section class="life" id="life" aria-labelledby="life-title">
+  <div class="life-head">
+    <p class="act rv"><i></i>Community</p>
+    <h2 class="rv rv-1" id="life-title">One church, <em>many hands.</em></h2>
+  </div>
+
+  <div class="life-list" id="lifeList">
+    <a class="lrow" href="#visit" data-img="0" data-cursor>
+      <span class="n">01</span>
+      <h3>Sunday School</h3>
+      <p class="desc">Where the youngest hearts first meet the faith.</p>
+      <span class="when">Sundays · 11:00 AM</span>
+    </a>
+    <a class="lrow" href="#visit" data-img="1" data-cursor>
+      <span class="n">02</span>
+      <h3>Marth Mariam Vanitha Samajom</h3>
+      <p class="desc">The women's fellowship that bears St. Mary's own name.</p>
+      <span class="when">1st &amp; 3rd Sundays</span>
+    </a>
+    <a class="lrow" href="#visit" data-img="0" data-cursor>
+      <span class="n">03</span>
+      <h3>MGOCSM &amp; OCYM</h3>
+      <p class="desc">Students and youth — the young church in action.</p>
+      <span class="when">2nd Sundays</span>
+    </a>
+    <a class="lrow" href="#visit" data-img="1" data-cursor>
+      <span class="n">04</span>
+      <h3>Valliapally Choir</h3>
+      <p class="desc">The ancient melodies of the Orthodox liturgy.</p>
+      <span class="when">Every Qurbana</span>
+    </a>
+    <a class="lrow" href="#visit" data-img="0" data-cursor>
+      <span class="n">05</span>
+      <h3>Senior Citizens Fellowship</h3>
+      <p class="desc">Honouring the elders whose faith built these walls.</p>
+      <span class="when">Monthly</span>
+    </a>
+    <a class="lrow" href="#visit" data-img="1" data-cursor>
+      <span class="n">06</span>
+      <h3>St. Mary's Charities</h3>
+      <p class="desc">Faith made visible, beyond the parish walls.</p>
+      <span class="when">Year-round</span>
+    </a>
+  </div>
+
+  <div class="hover-photo" id="hoverPhoto" aria-hidden="true">
+    <img src="1.png" alt="">
+    <img src="2.jpg" alt="">
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section class="news" id="news" aria-labelledby="news-title">
+  <div class="news-head">
+    <p class="act rv"><i></i>Parish Life</p>
+    <h2 class="rv rv-1" id="news-title">Feasts &amp; <em>announcements.</em></h2>
+  </div>
+
+  <div class="news-grid">
+    <article class="ncard rv">
+      <span class="tag">Lent</span>
+      <p class="date">September 1 – 8</p>
+      <h3>Ettu Nombu — the Eight-Day Lent</h3>
+      <p>The beloved fast of St. Mary. Eight evenings of prayer and song, ending in the Feast of her Nativity — the sanctuary at its most golden.</p>
+      <a class="go" href="#visit" data-cursor>Join Us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </article>
+
+    <article class="ncard rv rv-1">
+      <span class="tag">Feast</span>
+      <p class="date">August 15</p>
+      <h3>Shunoyo Perunnal</h3>
+      <p>The Feast of the Assumption of St. Mary — the great festival of the parish, with procession, intercession and fellowship lunch.</p>
+      <a class="go" href="#visit" data-cursor>Join Us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </article>
+
+    <article class="ncard rv rv-2">
+      <span class="tag">Season</span>
+      <p class="date">December 25</p>
+      <h3>Yeldho — the Nativity of Our Lord</h3>
+      <p>Carols beneath the spires, the midnight Qurbana, and a parish family gathered in the light she first carried.</p>
+      <a class="go" href="#visit" data-cursor>Join Us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CALL ============ -->
+<section class="call" aria-labelledby="call-title">
+  <div class="bg" id="callBg" aria-hidden="true"></div>
+  <div class="call-in">
+    <p class="scene-num">Epilogue — Your Chapter</p>
+    <h2 class="rv" id="call-title">Whatever you carry,<br>bring it to <em>the altar.</em></h2>
+    <p class="rv rv-1">Grief, gratitude, hope, or a name you cannot stop thinking of — the parish prays for every request, by name, before the Theotokos and her Son.</p>
+    <div class="call-cta rv rv-2">
+      <a class="pill pill-gold" href="mailto:office@stmarysvalliapally.in?subject=Prayer%20Request" data-cursor>
+        Send a Prayer Request
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="pill pill-line-w" href="#visit" data-cursor>Visit the Church</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="visit-grid">
+    <div class="visit-info">
+      <p class="act rv"><i></i>Visit Us</p>
+      <h2 class="rv rv-1" id="visit-title">Come, stand in <em>the gold light.</em></h2>
+      <p class="rv rv-2">The church stands in Jalahalli, north-west Bengaluru — its doors open before every service, its sanctuary glowing long after the last hymn.</p>
+
+      <div class="vrows rv rv-2">
+        <div class="vrow"><b>Address</b><p>St. Mary's Orthodox Valliapally, Jalahalli, Bengaluru – 560013</p></div>
+        <div class="vrow"><b>Email</b><p><a href="mailto:office@stmarysvalliapally.in" data-cursor>office@stmarysvalliapally.in</a></p></div>
+        <div class="vrow"><b>Office</b><p>9:00 AM – 1:00 PM · Sunday, Monday &amp; Saturday</p></div>
+        <div class="vrow"><b>Qurbana</b><p>Saturday 7:00 AM · Sunday 8:30 AM</p></div>
+      </div>
+
+      <a class="pill pill-ink rv rv-3" href="https://www.google.com/maps/search/?api=1&query=St+Marys+Orthodox+Church+Jalahalli+Bangalore" target="_blank" rel="noopener" data-cursor>
+        Get Directions
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="visit-map">
+      <iframe
+        title="Map — St. Mary's Orthodox Valliapally, Jalahalli, Bangalore"
+        src="https://maps.google.com/maps?q=St%20Marys%20Orthodox%20Church%20Jalahalli%20Bangalore&t=&z=14&ie=UTF8&iwloc=&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer aria-label="Footer">
+  <div class="foot-mega">
+    <p class="small">The Song of Mary</p>
+    <h2 class="rv">“All generations shall call me <span class="stroke">blessed.”</span></h2>
+  </div>
+
+  <div class="orn" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l2 6.5L20 5l-3.5 5.5L23 12l-6.5 1.5L20 19l-6-2.5L12 23l-2-6.5L4 19l3.5-5.5L1 12l6.5-1.5L4 5l6 2.5z"/></svg>
+  </div>
+
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <span class="brand-mark">
+        <img src="1.png" alt="St. Mary's Orthodox Valliapally" width="58" height="58" loading="lazy">
+      </span>
+      <p>St. Mary's Orthodox Valliapally, Jalahalli — a parish of the Malankara Orthodox Syrian Church, Diocese of Bangalore, under the protection of the Holy Theotokos.</p>
+      <div class="socials">
+        <a href="https://mosc.in" target="_blank" rel="noopener" aria-label="Malankara Orthodox Syrian Church" data-cursor>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v18M8 8h8M9.5 5.5h5"/><path d="M5 21h14" stroke-linecap="round"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook" data-cursor>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V13h2.7v8h3.2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" data-cursor>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8c1.5.4 7.8.4 7.8.4s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.2V8.8L15.5 12 10 15.2z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="foot-col">
+      <p class="foot-h">Explore</p>
+      <a href="#story">The Story</a>
+      <a href="#worship">Worship</a>
+      <a href="#life">Community</a>
+      <a href="#news">Feasts &amp; News</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+
+    <div class="foot-col">
+      <p class="foot-h">Worship</p>
+      <a href="#worship">Sunday · 8:30 AM Qurbana</a>
+      <a href="#worship">Saturday · 7:00 AM Qurbana</a>
+      <a href="#worship">Evening Prayers · 6:00 PM</a>
+      <a href="#news">Ettu Nombu · Sep 1–8</a>
+      <a href="#news">Shunoyo Perunnal · Aug 15</a>
+    </div>
+
+    <div class="foot-col">
+      <p class="foot-h">The Church</p>
+      <a href="https://mosc.in" target="_blank" rel="noopener">Malankara Orthodox Church</a>
+      <a href="#legacy">About the Parish</a>
+      <a href="#visit">Contact &amp; Directions</a>
+      <a href="mailto:office@stmarysvalliapally.in">Prayer Requests</a>
+    </div>
+  </div>
+
+  <div class="foot-legal">
+    <p>© 2026 St. Mary's Orthodox Valliapally, Jalahalli, Bengaluru. All rights reserved.</p>
+    <p style="font-family:var(--serif); font-style:italic; color:var(--gold-soft)">Magnificat anima mea Dominum</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var coarse  = window.matchMedia("(pointer: coarse)").matches;
+  var vh = window.innerHeight;
+  var clamp = function(v,a,b){ return Math.max(a, Math.min(b, v)); };
+
+  /* ---------- PRELOADER ---------- */
+  var loader = document.getElementById("loader");
+  var countEl = document.getElementById("loadCount");
+  function boot(){
+    document.body.classList.remove("lock");
+    document.body.classList.add("loaded");
+    loader.classList.add("done");
+    setTimeout(function(){ loader.remove(); measure(); }, 1300);
+  }
+  if (reduced){ countEl.textContent = "100"; boot(); }
+  else {
+    var n = 0;
+    var iv = setInterval(function(){
+      n = Math.min(100, n + Math.max(1, Math.round((100 - n) * .09)));
+      countEl.textContent = n;
+      if (n >= 100){ clearInterval(iv); setTimeout(boot, 350); }
+    }, 55);
+  }
+
+  /* ---------- SMOOTH SCROLL (wheel lerp, sticky-safe) ---------- */
+  var S = { target:0, current:0, active:false };
+  function smoothFrame(){
+    S.current += (S.target - S.current) * .085;
+    if (Math.abs(S.target - S.current) < .5){ S.current = S.target; S.active = false; }
+    window.scrollTo(0, S.current);
+    if (S.active) requestAnimationFrame(smoothFrame);
+  }
+  function glideTo(y){
+    y = clamp(y, 0, document.documentElement.scrollHeight - vh);
+    if (reduced || coarse){ window.scrollTo(0, y); return; }
+    S.target = y;
+    if (!S.active){ S.active = true; smoothFrame(); }
+  }
+  if (!reduced && !coarse){
+    S.target = S.current = window.scrollY;
+    window.addEventListener("wheel", function(e){
+      if (document.body.classList.contains("menu-open") || e.ctrlKey) return;
+      e.preventDefault();
+      S.target = clamp(S.target + e.deltaY, 0, document.documentElement.scrollHeight - vh);
+      if (!S.active){ S.active = true; smoothFrame(); }
+    }, { passive:false });
+    window.addEventListener("scroll", function(){
+      if (!S.active){ S.target = S.current = window.scrollY; }
+    }, { passive:true });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      var id = a.getAttribute("href");
+      if (id.length < 2) return;
+      var t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      glideTo(t.getBoundingClientRect().top + window.scrollY);
+      if (document.body.classList.contains("menu-open")) setMenu(false);
+    });
+  });
+
+  /* ---------- CURSOR ---------- */
+  if (!coarse && !reduced){
+    var dot = document.querySelector(".cursor-dot");
+    var ring = document.querySelector(".cursor-ring");
+    var mx=-100,my=-100,rx=-100,ry=-100;
+    document.addEventListener("pointermove", function(e){ mx=e.clientX; my=e.clientY; }, { passive:true });
+    (function cl(){
+      rx += (mx-rx)*.16; ry += (my-ry)*.16;
+      dot.style.transform = "translate("+mx+"px,"+my+"px) translate(-50%,-50%)";
+      ring.style.transform = "translate("+rx+"px,"+ry+"px) translate(-50%,-50%)";
+      requestAnimationFrame(cl);
+    })();
+    document.querySelectorAll("a, button, [data-cursor]").forEach(function(el){
+      el.addEventListener("pointerenter", function(){ document.body.classList.add("cursor-grow"); });
+      el.addEventListener("pointerleave", function(){ document.body.classList.remove("cursor-grow"); });
+    });
+  }
+
+  /* ---------- MENU ---------- */
+  var burger = document.getElementById("burger");
+  function setMenu(open){
+    document.body.classList.toggle("menu-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  burger.addEventListener("click", function(){ setMenu(!document.body.classList.contains("menu-open")); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") setMenu(false); });
+
+  /* ---------- WORSHIP TABS ---------- */
+  var wtabs = [].slice.call(document.querySelectorAll(".wtab"));
+  var wpanels = [].slice.call(document.querySelectorAll(".wpanel"));
+  var wind = document.getElementById("wtabInd");
+  function placeInd(tab){
+    wind.style.left = tab.offsetLeft + "px";
+    wind.style.width = tab.offsetWidth + "px";
+  }
+  function selectTab(i){
+    wtabs.forEach(function(t, j){
+      var on = j === i;
+      t.setAttribute("aria-selected", String(on));
+      wpanels[j].classList.toggle("active", on);
+      wpanels[j].hidden = !on;
+    });
+    placeInd(wtabs[i]);
+  }
+  wtabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ selectTab(i); });
+    t.addEventListener("keydown", function(e){
+      var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var ni = (i + d + wtabs.length) % wtabs.length;
+      wtabs[ni].focus(); selectTab(ni);
+    });
+  });
+  window.addEventListener("resize", function(){
+    var cur = wtabs.findIndex(function(t){ return t.getAttribute("aria-selected") === "true"; });
+    placeInd(wtabs[cur < 0 ? 0 : cur]);
+  }, { passive:true });
+  placeInd(wtabs[0]);
+
+  /* ---------- GEOMETRY ---------- */
+  var story = document.getElementById("story");
+  var scenes = [].slice.call(document.querySelectorAll(".scene"));
+  var rails  = [].slice.call(document.querySelectorAll(".rail-item"));
+  var verse  = document.querySelector(".verse");
+  var cinema = document.querySelector(".cinema");
+  var cinemaTrack = document.getElementById("cinemaTrack");
+  var cinemaBar = document.getElementById("cinemaBar");
+  var callSec = document.querySelector(".call");
+  var callBg = document.getElementById("callBg");
+  var heroBody = document.getElementById("heroBody");
+  var heroMedia = document.getElementById("heroMedia");
+  var kineticRow = document.getElementById("kineticRow");
+  var nav = document.getElementById("nav");
+  var progressBar = document.getElementById("progressBar");
+  var depths = [].slice.call(document.querySelectorAll("[data-depth]"));
+  var verseWords = [];
+
+  var G = {};
+  function measure(){
+    vh = window.innerHeight;
+    G.storyTop = story.offsetTop;
+    G.storyLen = story.offsetHeight - vh;
+    G.verseTop = verse.offsetTop;
+    G.verseLen = verse.offsetHeight - vh;
+    G.cinemaTop = cinema.offsetTop;
+    G.cinemaLen = cinema.offsetHeight - vh;
+    G.trackMax = Math.max(0, cinemaTrack.scrollWidth - window.innerWidth);
+    G.docMax = document.documentElement.scrollHeight - vh;
+  }
+  window.addEventListener("resize", measure, { passive:true });
+  window.addEventListener("load", measure);
+
+  /* split verse into words */
+  (function(){
+    var vt = document.getElementById("verseText");
+    var words = vt.textContent.trim().split(/\s+/);
+    vt.textContent = "";
+    words.forEach(function(w, i){
+      var s = document.createElement("span");
+      s.className = "w"; s.textContent = w;
+      vt.appendChild(s);
+      if (i < words.length - 1) vt.appendChild(document.createTextNode(" "));
+      verseWords.push(s);
+    });
+  })();
+
+  /* ---------- STORY: continuous crossfade ----------
+     Each scene owns an equal slice of the pinned scroll.
+     Opacity ramps in/out across a blend window at slice edges,
+     image scale + ghost numeral drift run on local progress. */
+  var N = scenes.length;
+  var BLEND = .18; /* fraction of a slice used for crossfade */
+  var currentScene = -1;
+
+  function setSceneClass(i){
+    if (i === currentScene) return;
+    currentScene = i;
+    scenes.forEach(function(s, j){ s.classList.toggle("on", j === i); });
+    rails.forEach(function(r, j){ r.classList.toggle("on", j === i); });
+    story.dataset.scene = i;
+  }
+
+  function updateStory(p){ /* p: 0..1 through the pinned range */
+    var f = p * N;
+    for (var i = 0; i < N; i++){
+      var local = f - i;              /* -inf..+inf; 0..1 inside slice */
+      var op;
+      if (local <= -BLEND || local >= 1 + BLEND){ op = 0; }
+      else if (local < BLEND){ op = (local + BLEND) / (2 * BLEND); }
+      else if (local > 1 - BLEND){ op = (1 + BLEND - local) / (2 * BLEND); }
+      else { op = 1; }
+      op = clamp(op, 0, 1);
+      /* first & last scene clamp outward edges */
+      if (i === 0 && local < .5) op = 1;
+      if (i === N - 1 && local > .5) op = Math.max(op, local <= 1 + BLEND ? 1 : 0);
+      scenes[i].style.opacity = op;
+
+      if (op > 0){
+        var lp = clamp(local, 0, 1);
+        var img = scenes[i].querySelector(".scene-media img");
+        if (img) img.style.transform = "scale(" + (1.12 - lp * .09) + ") translateY(" + (lp * -18) + "px)";
+        var ghost = scenes[i].querySelector(".ghost");
+        if (ghost) ghost.style.transform = "translateY(" + (30 - lp * 60) + "px)";
+      }
+    }
+    setSceneClass(clamp(Math.floor(f), 0, N - 1));
+  }
+
+  rails.forEach(function(r){
+    r.addEventListener("click", function(){
+      var i = parseInt(r.dataset.go, 10);
+      glideTo(G.storyTop + (G.storyLen * (i + .5)) / N);
+    });
+  });
+
+  /* ---------- MASTER LOOP ---------- */
+  var lastY = 0, velocity = 0, kineticX = 0;
+
+  function masterLoop(){
+    var y = window.scrollY;
+    velocity += ((y - lastY) - velocity) * .12;
+    lastY = y;
+
+    progressBar.style.transform = "scaleX(" + (G.docMax > 0 ? y / G.docMax : 0) + ")";
+    nav.classList.toggle("solid", y > vh * .82);
+    nav.classList.toggle("on-hero", y <= vh * .82);
+
+    if (y < vh * 1.2){
+      heroBody.style.transform = "translateY(" + y * .3 + "px)";
+      heroBody.style.opacity = clamp(1 - (y / vh) * 1.35, 0, 1);
+      heroMedia.style.transform = "translateY(" + y * .16 + "px)";
+    }
+
+    if (y >= G.storyTop - vh && y <= G.storyTop + story.offsetHeight){
+      updateStory(clamp((y - G.storyTop) / G.storyLen, 0, 1));
+    }
+
+    var vp = clamp((y - G.verseTop) / G.verseLen, 0, 1);
+    if (vp > 0 && vp < 1.05){
+      var lit = vp * 1.2 * verseWords.length;
+      for (var i = 0; i < verseWords.length; i++){
+        verseWords[i].classList.toggle("lit", lit > i + .5);
+      }
+    }
+
+    var cp = clamp((y - G.cinemaTop) / G.cinemaLen, 0, 1);
+    cinemaTrack.style.transform = "translateX(" + (-cp * G.trackMax) + "px)";
+    cinemaBar.style.transform = "scaleX(" + cp + ")";
+
+    kineticX -= (1 + Math.abs(velocity) * .1);
+    var w = kineticRow.scrollWidth / 3;
+    if (-kineticX >= w) kineticX += w;
+    kineticRow.style.transform = "translateX(" + kineticX + "px) skewX(" + clamp(velocity * -.05, -5, 5) + "deg)";
+
+    if (callSec){
+      var r = callSec.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < vh){
+        callBg.style.transform = "translateY(" + (((r.top + r.height/2 - vh/2) / vh) * -60) + "px)";
+      }
+    }
+
+    depths.forEach(function(el){
+      var er = el.getBoundingClientRect();
+      if (er.bottom < 0 || er.top > vh) return;
+      el.style.transform = "translateY(" + ((er.top + er.height/2 - vh/2) * parseFloat(el.dataset.depth)) + "px)";
+    });
+
+    requestAnimationFrame(masterLoop);
+  }
+
+  /* ---------- REVEALS + COUNTERS ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold:.12, rootMargin:"0px 0px -4% 0px" });
+  document.querySelectorAll(".rv, .clip-img").forEach(function(el){ io.observe(el); });
+
+  var cio = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; cio.unobserve(el);
+      var t = parseInt(el.dataset.count, 10) || 0;
+      if (reduced){ el.textContent = t; return; }
+      var t0 = null;
+      (function step(ts){
+        if (!t0) t0 = ts;
+        var p = clamp((ts - t0) / 1500, 0, 1);
+        el.textContent = Math.round(t * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(step);
+      })(performance.now());
+    });
+  }, { threshold:.6 });
+  document.querySelectorAll("[data-count]").forEach(function(el){ cio.observe(el); });
+
+  /* ---------- HOVER PHOTO ---------- */
+  if (!coarse && !reduced){
+    var hp = document.getElementById("hoverPhoto");
+    var hpImgs = [].slice.call(hp.querySelectorAll("img"));
+    var hx=0,hy=0,hcx=0,hcy=0;
+    document.getElementById("lifeList").addEventListener("pointermove", function(e){
+      hx = e.clientX; hy = e.clientY;
+    }, { passive:true });
+    document.querySelectorAll(".lrow").forEach(function(row){
+      row.addEventListener("pointerenter", function(){
+        hp.classList.add("on");
+        var idx = parseInt(row.dataset.img, 10) % hpImgs.length;
+        hpImgs.forEach(function(im, j){ im.classList.toggle("show", j === idx); });
+      });
+      row.addEventListener("pointerleave", function(){ hp.classList.remove("on"); });
+    });
+    (function hpl(){
+      hcx += (hx-hcx)*.12; hcy += (hy-hcy)*.12;
+      hp.style.left = (hcx + 30) + "px";
+      hp.style.top  = (hcy - 190) + "px";
+      requestAnimationFrame(hpl);
+    })();
+  }
+
+  /* ---------- BOOT ---------- */
+  measure();
+  if (!reduced){
+    updateStory(0);
+    requestAnimationFrame(masterLoop);
+  } else {
+    verseWords.forEach(function(w){ w.classList.add("lit"); });
+    window.addEventListener("scroll", function(){
+      var y = window.scrollY;
+      progressBar.style.transform = "scaleX(" + (G.docMax > 0 ? y / G.docMax : 0) + ")";
+      nav.classList.toggle("solid", y > vh * .82);
+      nav.classList.toggle("on-hero", y <= vh * .82);
+    }, { passive:true });
+  }
+})();
+</script>
+</body>
+</html>
